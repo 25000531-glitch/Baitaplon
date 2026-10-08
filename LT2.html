@@ -372,6 +372,16 @@
                 </div>
             </div>
 
+            <!-- Khối Biểu Đồ Trực Quan Tỷ Lệ Bán Chạy -->
+            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                <h3 style="color: #ffd700; font-size: 16px; margin-bottom: 15px;">
+                    <i class="fa-solid fa-chart-bar"></i> Biểu Đồ Trực Quan Tỷ Lệ Bán Chạy Sản Phẩm
+                </h3>
+                <div id="sales-chart-container" style="display: flex; flex-direction: column; gap: 12px; max-height: 250px; overflow-y: auto; padding-right: 5px;">
+                    <!-- Render tự động bằng JavaScript -->
+                </div>
+            </div>
+
             <!-- Tab Chuyển Đổi Chi Tiết Đơn Hàng vs Báo Cáo Sản Phẩm -->
             <div style="display: flex; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">
                 <button id="rev-tab-orders" onclick="switchRevenueTab('orders')" style="background:none; border:none; color:#ffd700; font-weight:bold; font-size:14px; cursor:pointer; border-bottom:2px solid #ffd700; padding-bottom:5px;">
@@ -525,46 +535,42 @@
     </div>
 
     <!-- MODAL GIỚI THIỆU THÀNH VIÊN NHÓM -->
-<div id="team-modal" class="modal" style="display: none;">
-    <div class="modal-content" style="max-width: 800px; width: 90%; background: #1a1a1a; border: 1px solid #e6b800; border-radius: 8px; padding: 25px; color: #fff; position: relative; max-height: 85vh; overflow-y: auto;">
-        <span onclick="closeTeamModal()" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #aaa;">&times;</span>
-        <h2 style="color: #ffd700; font-size: 20px; text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-users-gear"></i> Giới Thiệu Thành Viên Nhóm Đồ Án</h2>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px;">
-            <!-- Thành viên 1 -->
-            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
-                <img src="https://scontent.fhan7-1.fna.fbcdn.net/v/t39.30808-6/381346865_161076323718786_5984618265589581082_n.png?stp=dst-jpg_tt6&cstp=mx1500x1000&ctp=s1500x1000&_nc_cat=101&ccb=1-7&_nc_sid=86c6b0&_nc_eui2=AeER6CifzF10zhaU7eUVO_t5_SWej-WCd_z9JZ6P5YJ3_KI-5Nzic6QQTVOyyEKsiarKDTmzjtu7V3iYDnyL1JrW&_nc_ohc=gPIr_pltkJQQ7kNvwGzeTQ8&_nc_oc=Ado2IpErlPj8oteizpt386Ywm_e8TH6Fro8BpW5oHStfJ_XzISuzP_WUIrDmVboG940&_nc_zt=23&_nc_ht=scontent.fhan7-1.fna&_nc_gid=JrufxiLe1JKvFwIyuaHVbg&_nc_ss=7b2a8&oh=00_AQLZPUMvNvJBUhvyeyjcqSNmJio5bwxZP0QhsHBKHf671w&oe=6AB84304" alt="Nguyễn Công Chiến" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
-                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Nguyễn Công Chiến</h4>
-                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Trưởng Nhóm</p>
-                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000368</p>
-            </div>
+    <div id="team-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px; width: 90%; background: #1a1a1a; border: 1px solid #e6b800; border-radius: 8px; padding: 25px; color: #fff; position: relative; max-height: 85vh; overflow-y: auto;">
+            <span onclick="closeTeamModal()" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #aaa;">&times;</span>
+            <h2 style="color: #ffd700; font-size: 20px; text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-users-gear"></i> Giới Thiệu Thành Viên Nhóm Đồ Án</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px;">
+                <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                    <img src="https://scontent.fhan9-1.fna.fbcdn.net/v/t39.30808-6/381346865_161076323718786_5984618265589581082_n.png?stp=dst-jpg_tt6&cstp=mx1500x1000&ctp=s1500x1000&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=86c6b0&_nc_eui2=AeER6CifzF10zhaU7eUVO_t5_SWej-WCd_z9JZ6P5YJ3_KI-5Nzic6QQTVOyyEKsiarKDTmzjtu7V3iYDnyL1JrW&_nc_ohc=VfWM7R4ubFAQ7kNvwHZC4eE&_nc_oc=AdoLXdbWSIP4GFhDCNnf4Pl4cGOINAc3H-uQ4asY2Q8EKHXx5_G5mlgkyULYJGA7S4Q&_nc_zt=23&_nc_ht=scontent.fhan9-1.fna&_nc_gid=t6d5-B4hHWkdxKgYJh54sg&_nc_ss=7b2a8&oh=00_AQMsbr85bElZxbkOO1WpiwD5ekGIefNQVFOyQrwQZ4-MTA&oe=6ACCB244" alt="Nguyễn Công Chiến" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                    <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Nguyễn Công Chiến</h4>
+                    <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Trưởng Nhóm</p>
+                    <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000368</p>
+                </div>
 
-            <!-- Thành viên 2 -->
-            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
-                <img src="https://scontent.fhan7-1.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png&cstp=mx2048x2048&ctp=s200x200&_nc_cat=1&ccb=1-7&_nc_sid=b224c7&_nc_eui2=AeEwplTKfy5AE1dPLPYfts_VWt9TLzuBU1Ba31MvO4FTUIrrbU_czqGDLJ0d8GKJODsU3FpSIdHt_WToNZIa5Yc7&_nc_ohc=EgFnToEjFPcQ7kNvwGqfBjs&_nc_oc=AdqngDE6mS1pNcyLyPTliGGPCRNO8D8XPo7PvizQKZyP3W2Eda_7fZAMS2Rvzopnsts&_nc_zt=24&_nc_ht=scontent.fhan7-1.fna&_nc_ss=7b2a8&oh=00_AQKvZ-dDdVDZ92RhbHjBpC3_nddhYJ_hnklBWHS-TiJdBw&oe=6AD9CF3A" alt="Dương Ngô Quảng" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
-                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Dương Ngô Quảng</h4>
-                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
-                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000120</p>
-            </div>
+                <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                    <img src="https://scontent.fhan7-1.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png&cstp=mx2048x2048&ctp=s200x200&_nc_cat=1&ccb=1-7&_nc_sid=b224c7&_nc_eui2=AeEwplTKfy5AE1dPLPYfts_VWt9TLzuBU1Ba31MvO4FTUIrrbU_czqGDLJ0d8GKJODsU3FpSIdHt_WToNZIa5Yc7&_nc_ohc=EgFnToEjFPcQ7kNvwGqfBjs&_nc_oc=AdqngDE6mS1pNcyLyPTliGGPCRNO8D8XPo7PvizQKZyP3W2Eda_7fZAMS2Rvzopnsts&_nc_zt=24&_nc_ht=scontent.fhan7-1.fna&_nc_ss=7b2a8&oh=00_AQKvZ-dDdVDZ92RhbHjBpC3_nddhYJ_hnklBWHS-TiJdBw&oe=6AD9CF3A" alt="Dương Ngô Quảng" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                    <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Dương Ngô Quảng</h4>
+                    <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
+                    <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000120</p>
+                </div>
 
-            <!-- Thành viên 3 -->
-            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
-                <img src="https://scontent.fhan9-1.fna.fbcdn.net/v/t39.30808-1/705859875_1019646420745904_8474849709242082030_n.jpg?stp=dst-jpg_tt6&cstp=mx736x732&ctp=s200x200&_nc_cat=109&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFljle0Px2vLPMASar7XRmprhC54ps-1XGuELnimz7Vcb68XJ97-eqo42KKfRIDE1tOUlNseiLygmhup0RSjA5C&_nc_ohc=Ba8E12Rq9wIQ7kNvwHWaMMF&_nc_oc=AdqEzwM_AmgDjg0AmhIMrI8Av04E8XNzKSqH6Z3mBBxFKxDWEbErb--E7QSNlCDlBBE&_nc_zt=24&_nc_ht=scontent.fhan9-1.fna&_nc_gid=bZaVEsUJ9OnlOJyotF1QwQ&_nc_ss=7b2a8&oh=00_AQIhB0Qj3OO6VRtHHqKota7UknyyTHgy_eha9uKs-hizSQ&oe=6AB83D3A" alt="Nguyễn Anh Tuấn" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
-                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Nguyễn Anh Tuấn</h4>
-                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
-                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000531</p>
-            </div>
+                <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                    <img src="https://scontent.fhan9-1.fna.fbcdn.net/v/t39.30808-6/659047304_970869285623618_2695954280761228127_n.jpg?stp=dst-jpg_tt6&cstp=mx564x585&ctp=s564x585&_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeFivOXPjLl2zolMJK-vxZC-dC1t43I_JBV0LW3jcj8kFQsCatRA9lEjJmjvu7-7kzoLvCVye8Sm8IcZLQESHswd&_nc_ohc=GwHI8D2h_ocQ7kNvwGKctNH&_nc_oc=AdojFPXEBxNxA-YBNsbED-x6JsipfW3TjcGdGK31c3hSqcOWY9NR8vdEitnBLfCVIQs&_nc_zt=23&_nc_ht=scontent.fhan9-1.fna&_nc_gid=6TA_ML0v9GgjvjGfeYpVZg&_nc_ss=7b2a8&oh=00_AQPXjAgONjBm_Rx_u8UT33nKZlq3Z5zNlDLfMXpJpv2Xug&oe=6ACCBD49" alt="Nguyễn Anh Tuấn" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                    <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Nguyễn Anh Tuấn</h4>
+                    <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
+                    <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000531</p>
+                </div>
 
-            <!-- Thành viên 4 -->
-            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
-                <img src="https://scontent.fhan19-1.fna.fbcdn.net/v/t39.30808-6/481267616_615960891222020_3129244601572774543_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1242x2688&ctp=s960x960&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeGrdmzGbtA6-MrYRIepXKNtSNURTbowF05I1RFNujAXTnr96jhaXAWwRSkavag39T66ih4t2q2pTt3jHZC0lb8F&_nc_ohc=Lck716wfxUgQ7kNvwGepN9i&_nc_oc=Ado0OQ2m-Hd9TskWMaPjTGob_i1fyDAOK0onj40U2aLXMGtIOh8_rvLU3RqP5mWXsB0&_nc_zt=23&_nc_ht=scontent.fhan19-1.fna&_nc_gid=YDONCwBi8zRt-O8NH96kRQ&_nc_ss=7b2a8&oh=00_AQLFoCEe1msWGc2zpq4LEzQDIrrP0YhXJLN55oD3bZpQPw&oe=6AB8DE11" alt="Đinh Anh Tuấn" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
-                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Đinh Anh Tuấn</h4>
-                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
-                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000654</p>
+                <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                    <img src="https://scontent.fhan7-1.fna.fbcdn.net/v/t39.30808-6/481267616_615960891222020_3129244601572774543_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1242x2688&ctp=s960x960&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeGrdmzGbtA6-MrYRIepXKNtSNURTbowF05I1RFNujAXTnr96jhaXAWwRSkavag39T66ih4t2q2pTt3jHZC0lb8F&_nc_ohc=fxKdQXvISWEQ7kNvwFQJ6s7&_nc_oc=AdoowxkrfsoVATS4pSaJkmAZ7mTntN90wlNn90dUaIZxkMYxH5ltQM3OYMboXc4Gt8Q&_nc_zt=23&_nc_ht=scontent.fhan7-1.fna&_nc_gid=Nki3ZHHtXG8l_umV9KOZ_A&_nc_ss=7b2a8&oh=00_AQNcTZNc6eC7IrfCojemLmciHpiqD2dfHt7YNQ1JvKCd7w&oe=6ACCDCD1" alt="Đinh Anh Tuấn" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                    <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Đinh Anh Tuấn</h4>
+                    <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
+                    <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000654</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Floating Contact Bar -->
     <div class="floating-contact-bar">
@@ -648,7 +654,7 @@
         </div>
     </section>
 
-    <!-- FORM GỬI GÓP Ý / LIÊN HỆ CÓ VALIDATION BẰNG JAVASCRIPT (Yêu cầu bắt buộc 6.2) -->
+    <!-- FORM GỬI GÓP Ý / LIÊN HỆ CÓ VALIDATION BẰNG JAVASCRIPT -->
     <section style="max-width: 600px; margin: 40px auto; background: #181818; border: 1px solid #333; padding: 25px; border-radius: 8px; color: #fff;">
         <h3 style="color: #ffd700; font-size: 18px; margin-bottom: 15px; text-align: center;"><i class="fa-solid fa-envelope-open-text"></i> Gửi Thông Tin Góp Ý & Liên Hệ</h3>
         
@@ -691,7 +697,6 @@
                 <p>Địa chỉ uy tín hàng đầu cung cấp rượu vang chính hãng nhập khẩu từ Pháp, Ý, Chile, Mỹ, Tây Ban Nha và các dòng Vang Việt Nam cao cấp.</p>
             </div>
             
-            <!-- Khối Giấy Phép Kinh Doanh Có Ảnh -->
             <div class="footer-license" style="flex: 1.2; min-width: 270px; display: flex; gap: 15px; align-items: flex-start;">
                 <div onclick="openLicenseModal()" style="cursor: pointer; background: #222; padding: 4px; border: 1px solid #e6b800; border-radius: 4px; text-align: center;" title="Bấm để phóng to giấy phép">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl5ac_hOmWe3xtAtSsd2_9K5bhbFfzRyhP2VnsxgIkOw&s=10" alt="Giấy phép kinh doanh" style="width: 75px; height: 95px; object-fit: cover; display: block; border-radius: 2px;" referrerpolicy="no-referrer">
@@ -708,7 +713,6 @@
                 </div>
             </div>
 
-            <!-- Khối Tuân Thủ Quy Định Quảng Cáo -->
             <div class="footer-ad-compliance" style="flex: 1.2; min-width: 270px;">
                 <h4 style="color: #e6b800; margin-bottom: 6px; font-size: 15px;"><i class="fa-solid fa-shield-halved"></i> QUY ĐỊNH QUẢNG CÁO</h4>
                 <p style="font-size: 12.5px; color: #ccc; line-height: 1.5; margin-bottom: 4px;">
@@ -727,7 +731,6 @@
             </div>
         </div>
 
-        <!-- Khối cảnh báo cố định dưới Footer -->
         <div style="background: #0d0d0d; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 12px 0; margin-bottom: 15px;">
             <div class="container" style="text-align: center; color: #ff6666; font-size: 12.5px; line-height: 1.6;">
                 <p style="font-weight: bold; margin-bottom: 3px;">
@@ -847,17 +850,14 @@
         </div>
     </div>
 
-    <!-- ================= PHẦN ĐÁNH GIÁ CHẤT LƯỢNG PHỤC VỤ ================= -->
+    <!-- PHẦN ĐÁNH GIÁ CHẤT LƯỢNG PHỤC VỤ -->
     <section class="service-reviews-section" style="max-width: 1200px; margin: 40px auto; padding: 25px; background: #181818; border: 1px solid #333; border-radius: 10px; color: #fff;">
         <div style="text-align: center; margin-bottom: 25px;">
             <h2 style="color: #ffd700; font-size: 24px; margin-bottom: 8px;"><i class="fa-solid fa-face-smile-star"></i> Đánh Giá Dịch Vụ & Phục Vụ</h2>
             <p style="color: #aaa; font-size: 14px;">Ý kiến của bạn là động lực để Rượu Vang Plaza nâng cao chất lượng phục vụ mỗi ngày!</p>
         </div>
 
-        <!-- Bố cục 2 cột: Cột trái là Form gửi đánh giá, Cột phải là danh sách đánh giá -->
         <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; flex-wrap: wrap;" class="review-grid-container">
-            
-            <!-- Cột 1: Form Gửi Đánh Giá -->
             <form id="service-review-form" onsubmit="submitServiceReview(event)" style="background: #222; padding: 20px; border-radius: 8px; border: 1px solid #444; display: flex; flex-direction: column; gap: 12px;">
                 <h3 style="color: #e6b800; font-size: 16px; margin-bottom: 5px;"><i class="fa-solid fa-pen-nib"></i> Gửi đánh giá của bạn</h3>
                 
@@ -887,11 +887,10 @@
                 </button>
             </form>
 
-            <!-- Cột 2: Danh sách các đánh giá dịch vụ gần đây -->
             <div>
                 <h3 style="color: #e6b800; font-size: 16px; margin-bottom: 12px;"><i class="fa-solid fa-comments"></i> Phản hồi từ khách hàng thực tế</h3>
                 <div id="service-reviews-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; padding-right: 5px;">
-                    <!-- Dữ liệu đánh giá sẽ được render bằng JavaScript ở dưới -->
+                    <!-- Render từ JS -->
                 </div>
             </div>
         </div>

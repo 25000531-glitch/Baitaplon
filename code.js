@@ -926,6 +926,35 @@ function renderRevenueDashboard() {
     if (statAov) statAov.innerText = averageOrderValue.toLocaleString('vi-VN') + " VNĐ";
     if (statRatio) statRatio.innerText = `${successOrders} / ${cancelledOrders}`;
 
+    // --- RENDER BIỂU ĐỒ TRỰC QUAN TỶ LỆ BÁN CHẠY ---
+    const chartContainer = document.getElementById("sales-chart-container");
+    if (chartContainer) {
+        const sortedProductsForChart = Object.values(productStats).sort((a, b) => b.totalQuantity - a.totalQuantity);
+        const maxQuantity = sortedProductsForChart.length > 0 ? sortedProductsForChart[0].totalQuantity : 1;
+
+        if (sortedProductsForChart.length === 0) {
+            chartContainer.innerHTML = `<p style="text-align: center; color: #888; padding: 15px;">Chưa có dữ liệu sản phẩm để vẽ biểu đồ.</p>`;
+        } else {
+            chartContainer.innerHTML = sortedProductsForChart.map((p, idx) => {
+                const barWidth = maxQuantity > 0 ? (p.totalQuantity / maxQuantity) * 100 : 0;
+                return `
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 13px; color: #ddd;">
+                            <span><strong>#${idx + 1}</strong> ${p.name}</span>
+                            <span style="color: #ffd700; font-weight: bold;">${p.totalQuantity} chai (${p.totalRevenue.toLocaleString('vi-VN')} đ)</span>
+                        </div>
+                        <div style="background: #111; border-radius: 6px; height: 22px; width: 100%; overflow: hidden; border: 1px solid #444; position: relative;">
+                            <div style="background: linear-gradient(90deg, #800020, #e6b800); width: ${barWidth}%; height: 100%; transition: width 0.4s ease;"></div>
+                            <span style="position: absolute; top: 0; left: 10px; font-size: 11px; font-weight: bold; color: #fff; line-height: 22px;">
+                                ${barWidth.toFixed(1)}% hiệu suất tối đa
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
     const ordersTbody = document.getElementById("revenue-orders-tbody");
     if (ordersTbody) {
         if (filteredOrders.length === 0) {
@@ -972,19 +1001,17 @@ function renderRevenueDashboard() {
     if (productsTbody) {
         const sortedProducts = Object.values(productStats).sort((a, b) => {
             if (b.totalQuantity !== a.totalQuantity) {
-                return b.totalQuantity - a.totalQuantity; // Số lượng lớn hơn xếp trên
+                return b.totalQuantity - a.totalQuantity;
             }
             return b.totalRevenue - a.totalRevenue;
         });
 
-        // Tính tổng số lượng chai bán ra để làm mẫu số cho tỷ lệ % bán chạy chuẩn xác
         const sumAllQuantity = sortedProducts.reduce((acc, curr) => acc + curr.totalQuantity, 0);
 
         if (sortedProducts.length === 0) {
             productsTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#888; padding:25px;">Chưa có sản phẩm nào phát sinh doanh số.</td></tr>`;
         } else {
             productsTbody.innerHTML = sortedProducts.map((p, index) => {
-                // Tỷ lệ % dựa trên số lượng bán (Sản phẩm bán nhiều hơn -> % cao hơn, thanh progress bar dài hơn)
                 const percent = sumAllQuantity > 0 ? ((p.totalQuantity / sumAllQuantity) * 100).toFixed(1) : 0;
                 return `
                     <tr>
@@ -1005,75 +1032,6 @@ function renderRevenueDashboard() {
             }).join('');
         }
     }
-
-    let customersTbody = document.getElementById("revenue-customers-tbody");
-    if (!customersTbody) {
-        const revModalBody = document.querySelector("#revenue-modal .modal-content");
-        if (revModalBody) {
-            let custViewDiv = document.createElement("div");
-            custViewDiv.id = "revenue-customers-view";
-            custViewDiv.style.display = "none";
-            custViewDiv.innerHTML = `
-                <h4 style="color:#ffd700; margin-bottom:12px; font-size:15px;"><i class="fa-solid fa-users"></i> Danh sách Khách hàng đóng góp doanh thu</h4>
-                <div style="overflow-x:auto;">
-                    <table class="admin-table" style="width:100%;">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Họ tên khách hàng</th>
-                                <th>Số điện thoại</th>
-                                <th>Địa chỉ giao hàng</th>
-                                <th>Số đơn hàng</th>
-                                <th>Tổng tiền đã mua</th>
-                            </tr>
-                        </thead>
-                        <tbody id="revenue-customers-tbody-inner"></tbody>
-                    </table>
-                </div>
-            `;
-            revModalBody.appendChild(custViewDiv);
-            customersTbody = document.getElementById("revenue-customers-tbody-inner");
-        }
-    }
-
-    if (customersTbody) {
-        const sortedCustomers = Object.values(customerStats).sort((a, b) => b.totalSpent - a.totalSpent);
-        if (sortedCustomers.length === 0) {
-            customersTbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#888; padding:25px;">Chưa có dữ liệu khách hàng.</td></tr>`;
-        } else {
-            customersTbody.innerHTML = sortedCustomers.map((c, idx) => `
-                <tr>
-                    <td><strong>#${idx + 1}</strong></td>
-                    <td><strong style="color:#fff;">${c.name}</strong><br><small style="color:#888;">${c.email || 'Không có email'}</small></td>
-                    <td><span style="color:#ffd700;">${c.phone}</span></td>
-                    <td><small style="color:#ccc;">${c.address}</small></td>
-                    <td><strong style="color:#fff;">${c.orderCount}</strong> đơn</td>
-                    <td><strong style="color:#38ef7d;">${c.totalSpent.toLocaleString('vi-VN')} VNĐ</strong></td>
-                </tr>
-            `).join('');
-        }
-    }
-}
-
-function exportRevenueReportCSV() {
-    let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-    csvContent += "Ma Don Hang,Ngay Dat,Khach Hang,So Dien Thoai,Dia Chi,Hinh Thuc Thanh Toan,Phi Ship,Tong Tien,Trang Thai\n";
-
-    orderHistory.forEach(o => {
-        let row = [
-            `"${o.code}"`, `"${o.date}"`, `"${o.customerName}"`, `"${o.phone}"`,
-            `"${o.address}"`, `"${o.method}"`, o.shippingFee || 0, o.totalPrice, `"${o.status}"`
-        ].join(",");
-        csvContent += row + "\r\n";
-    });
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `Bao_Cao_Doanh_Thu_Ruou_Vang_${new Date().toLocaleDateString('vi-VN').replace(/\//g, '-')}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
 }
 
 // ======================
