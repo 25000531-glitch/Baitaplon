@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rượu Vang Plaza - Thế Giới Rượu Vang Nhập Khẩu & Vang Việt Nam Cao Cấp</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Popup Cửa sổ xác nhận tuổi (Age Gate) -->
+    <div id="age-gate-modal" class="modal">
+        <div class="modal-content" style="max-width: 450px; text-align: center; border-color: #ff4d4d; background: #1a1a1a;">
+            <div style="padding: 10px;">
+                <i class="fa-solid fa-triangle-exclamation" style="font-size: 55px; color: #ff4d4d; margin-bottom: 20px;"></i>
+                <h2 style="color: #e50606; margin-bottom: 15px; font-size: 24px;">XÁC NHẬN ĐỘ TUỔI</h2>
+                <p style="color: #ddd; font-size: 15px; line-height: 1.6; margin-bottom: 25px;">
+                    Trang web này chứa nội dung về rượu vang và các thức uống có cồn.<br>
+                    Theo quy định của pháp luật, bạn phải từ <strong>18 tuổi trở lên</strong> mới được phép truy cập.
+                </p>
+                
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button onclick="confirmAge(true)" class="btn-primary" style="flex: 1; padding: 12px; border: none; cursor: pointer; font-size: 15px; font-weight: bold;">
+                        TÔI ĐÃ ĐỦ 18 TUỔI
+                    </button>
+                    <button onclick="confirmAge(false)" style="flex: 1; background: #2a2a2a; border: 1px solid #555; color: #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s;">
+                        TÔI CHƯA ĐỦ
+                    </button>
+                </div>
+                
+                <p style="color: #777; font-size: 12px; margin-top: 20px;">
+                    * Bằng cách bấm xác nhận, bạn đồng ý với các điều khoản của chúng tôi. Hãy thưởng thức có trách nhiệm.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Lời Chào Mở Đầu -->
+    <div id="welcome-modal" class="modal">
+        <div class="modal-content" style="max-width: 550px; text-align: center; border-color: #ffd700;">
+            <div style="padding: 10px;">
+                <i class="fa-solid fa-wine-glass" style="font-size: 45px; color: #e6b800; margin-bottom: 15px;"></i>
+                <h2 style="color: #e6cf00; margin-bottom: 15px; font-size: 24px;">RƯỢU VANG PLAZA XIN CHÀO!</h2>
+                <p style="color: #ddd; font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                    Cảm ơn quý khách đã ghé thăm showroom trực tuyến của <strong>Rượu Vang Plaza</strong>.<br> 
+                    Chúng tôi chuyên cung cấp các dòng rượu vang nhập khẩu cao cấp và vang nội địa Việt Nam chính hãng 100%.
+                </p>
+
+                <!-- Khối hiển thị Địa chỉ & Hotline -->
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 6px; border: 1px solid #333; text-align: left; margin-bottom: 15px; font-size: 13.5px; color: #ccc;">
+                    <p style="margin-bottom: 6px;"><i class="fa-solid fa-location-dot" style="color: #e6b800; width: 20px;"></i> <strong>Địa chỉ:</strong> Showroom Rượu Vang Plaza, Cầu Giấy, Hà Nội</p>
+                    <p style="margin-bottom: 6px;"><i class="fa-solid fa-phone" style="color: #e6b800; width: 20px;"></i> <strong>Hotline:</strong> 0988 888 668</p>
+                    <p style="margin: 0;"><i class="fa-solid fa-clock" style="color: #e6b800; width: 20px;"></i> <strong>Giờ mở cửa:</strong> 08:00 - 21:30 (Tất cả các ngày)</p>
+                </div>
+
+                <!-- Ưu đãi -->
+                <div style="background: rgba(128, 0, 32, 0.3); padding: 10px; border-radius: 5px; border: 1px dashed #800020; margin-bottom: 20px;">
+                    <p style="color: #ffd700; font-size: 13px; margin: 0;">
+                        <i class="fa-solid fa-gift"></i> <strong>Ưu đãi hôm nay:</strong> Miễn phí vận chuyển cho đơn hàng từ 3 chai!
+                    </p>
+                </div>
+                
+                <!-- Cụm Nút -->
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button onclick="closeWelcome()" class="btn-primary" style="flex: 2; border: none; cursor: pointer; font-size: 15px;">
+                        KHÁM PHÁ NGAY
+                    </button>
+                    <button onclick="closeWelcome()" style="flex: 1; background: #2a2a2a; border: 1px solid #555; color: #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s;">
+                        <i class="fa-solid fa-xmark"></i> ĐÓNG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Top -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <p><i class="fa-solid fa-phone"></i> Hotline: 0377770654 - Cam kết 100% Chính Hãng</p>
+            <p><i class="fa-solid fa-truck"></i> Giao hàng hỏa tốc toàn quốc</p>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container header-main">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-wine-glass-empty"></i>
+                <div class="logo-text-wrapper">
+                    <span class="logo-title-top">Rượu Vang</span>
+                    <span class="logo-title-bottom">Plaza</span>
+                </div>
+            </a>
+
+            <!-- Thanh tìm kiếm -->
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Tìm kiếm rượu vang, vang Đà Lạt, sâm panh..." onkeyup="searchProducts()">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <!-- Nút mở modal Thành Viên Nhóm -->
+                <button onclick="openTeamModal()" style="background: #2a2a2a; border: 1px solid #ffd700; color: #ffd700; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                    <i class="fa-solid fa-users"></i> Thành Viên Nhóm
+                </button>
+
+                <!-- Tài khoản -->
+                <div id="user-account-area">
+                    <button onclick="openAuthModal('login')" class="btn-auth">
+                        <i class="fa-solid fa-user"></i> Đăng nhập
+                    </button>
+                </div>
+
+                <!-- Giỏ hàng -->
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#home">Trang Chủ</a></li>
+                <li><a href="#products" onclick="filterProducts('red', event)">Rượu Vang France</a></li>
+                <li><a href="#products" onclick="filterProducts('red', event)">Rượu Vang Italy</a></li>
+                <li><a href="#products" onclick="filterProducts('local', event)">Rượu Vang VietNam</a></li>
+                <li><a href="#products" onclick="filterProducts('sparkling', event)">Sparkling Wine Cao Cấp</a></li>
+                <li><a href="#footer">Liên Hệ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidebar Giỏ Hàng -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>GIỎ HÀNG CỦA BẠN</h3>
+            <span class="close-btn" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <h4>Tổng tiền: <span id="cart-total">0</span> VNĐ</h4>
+            <button class="btn-checkout" onclick="openCheckoutModal()">TIẾN HÀNH THANH TOÁN</button>
+        </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <section id="home" class="hero">
+        <div class="hero-content" style="max-width: 800px; padding: 0 20px;">
+            <h1>THẾ GIỚI RƯỢU VANG PLAZA</h1>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 25px; color: #e0e0e0;">
+                Chào mừng quý khách đến với <strong>Rượu Vang Plaza</strong> – Điểm đến hàng đầu chuyên nhập khẩu các dòng rượu vang danh tiếng từ Pháp, Ý, Chile, Mỹ, Tây Ban Nha và các dòng vang nội địa tinh tế của Việt Nam như Vang Đà Lạt, Vang Phan Rang, Vang Mộc Châu.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="#products" class="btn-primary">KHÁM PHÁ BỘ SƯU TẬP</a>
+                <a href="#footer" class="btn-primary" style="background: transparent; border: 1px solid #e6b800; color: #e6b800;">LIÊN HỆ TƯ VẤN</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="products" class="products-section container">
+        <h2 class="section-title">DANH MỤC SẢN PHẨM NỔI BẬT</h2>
+        
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterProducts('all', event)">Tất Cả</button>
+            <button class="filter-btn" onclick="filterProducts('Pháp', event)">Vang Pháp</button>
+            <button class="filter-btn" onclick="filterProducts('Ý', event)">Vang Ý</button>
+            <button class="filter-btn" onclick="filterProducts('local', event)" style="border-color: #ffd700; color: #ffd700;">Vang VietNam</button>
+            <button class="filter-btn" onclick="filterProducts('sparkling', event)">Sparkling Wine</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="product-grid">
+            <!-- Render từ JS -->
+        </div>
+    </section>
+
+    <!-- Modal Chi tiết sản phẩm -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Render từ JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Đăng Nhập / Đăng Ký -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content" style="max-width: 480px;">
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <div style="display: flex; justify-content: space-around; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+                <h3 id="tab-login" onclick="switchAuthTab('login')" style="color: #e6b800; cursor: pointer; border-bottom: 2px solid #e6b800; padding-bottom: 5px;">ĐĂNG NHẬP</h3>
+                <h3 id="tab-register" onclick="switchAuthTab('register')" style="color: #888; cursor: pointer; padding-bottom: 5px;">ĐĂNG KÝ</h3>
+            </div>
+
+            <!-- Form Đăng Nhập -->
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:14px;">Tên đăng nhập:</label>
+                    <input type="text" id="login-username" required placeholder="Nhập email hoặc tên..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:14px;">Mật khẩu:</label>
+                    <input type="password" id="login-password" required placeholder="Nhập mật khẩu..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%; padding:11px; font-size:15px; border:none; cursor:pointer;">
+                    ĐĂNG NHẬP NGAY
+                </button>
+            </form>
+
+            <!-- Form Đăng Ký -->
+            <form id="register-form" onsubmit="handleRegister(event)" style="display: none;">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:14px;">Họ và Tên (*):</label>
+                    <input type="text" id="reg-fullname" required placeholder="Nhập họ và tên..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:14px;">Tên đăng nhập (*):</label>
+                    <input type="text" id="reg-username" required placeholder="Tạo tên đăng nhập..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:14px;">Email / SĐT (*):</label>
+                    <input type="text" id="reg-contact" required placeholder="Nhập email hoặc số điện thoại..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:14px;">Mật khẩu (*):</label>
+                    <input type="password" id="reg-password" required placeholder="Tạo mật khẩu..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%; padding:11px; font-size:15px; border:none; cursor:pointer;">
+                    TẠO TÀI KHOẢN
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Quản Lý Tồn Kho & Giảm Giá Admin -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content" style="max-width: 980px; padding: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 15px;">
+                <h2 style="color: #ffd700; font-size: 21px; margin:0;"><i class="fa-solid fa-boxes-packing"></i> BẢNG QUẢN LÝ TỒN KHO & GIẢM GIÁ</h2>
+                
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="admin-search-input" onkeyup="filterAdminTable()" placeholder="Tìm sản phẩm..." style="padding: 8px 12px; background: #222; border: 1px solid #e6b800; color: #fff; border-radius: 20px; width: 190px; font-size: 13px;">
+                    
+                    <button onclick="saveAllBulkStock()" class="btn-save-stock" style="background: #2e7d32; padding: 8px 16px; font-size: 13px; font-weight: bold; border-radius: 20px; cursor: pointer;">
+                        <i class="fa-solid fa-floppy-disk"></i> LƯU TẤT CẢ
+                    </button>
+                    
+                    <button onclick="openAdminPanel()" style="background: #333; color: #ccc; border: 1px solid #555; padding: 8px 12px; font-size: 13px; border-radius: 20px; cursor: pointer;" title="Khôi phục lại số lượng chưa lưu">
+                        <i class="fa-solid fa-rotate-left"></i> Đặt lại
+                    </button>
+
+                    <button onclick="closeAdminModal()" style="background: #800020; color: #fff; border: 1px solid #e6b800; padding: 8px 16px; font-size: 13px; font-weight: bold; border-radius: 20px; cursor: pointer;">
+                        <i class="fa-solid fa-xmark"></i> ĐÓNG
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-table-container">
+                <form id="bulk-stock-form" onsubmit="event.preventDefault(); saveAllBulkStock();">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 45px;">ID</th>
+                                <th style="width: 65px;">Ảnh</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th style="width: 140px;">Giá Bán</th>
+                                <th style="width: 110px;">Giảm Giá</th>
+                                <th style="width: 130px;">Số Lượng Tồn</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-product-tbody">
+                            <!-- Render từ JS -->
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Thống Kê Doanh Thu Admin -->
+    <div id="revenue-modal" class="modal">
+        <div class="modal-content" style="max-width: 1100px; padding: 25px; max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 15px;">
+                <div>
+                    <h2 style="color: #ffd700; font-size: 22px; margin:0;"><i class="fa-solid fa-chart-pie"></i> BÁO CÁO THỐNG KÊ DOANH THU CHI TIẾT</h2>
+                    <small style="color:#aaa; font-size:12px;">Phân tích tổng quan doanh số, chi tiết giao dịch & top sản phẩm bán chạy</small>
+                </div>
+                
+                <button onclick="closeRevenueModal()" style="background: #800020; color: #fff; border: 1px solid #e6b800; padding: 8px 16px; font-size: 13px; font-weight: bold; border-radius: 20px; cursor: pointer;">
+                    <i class="fa-solid fa-xmark"></i> ĐÓNG
+                </button>
+            </div>
+
+            <!-- Khối Thanh Bộ Lọc Nâng Cao -->
+            <div style="background:#222; padding:12px 15px; border-radius:8px; border:1px solid #333; margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <label style="color:#ccc; font-size:13px; font-weight:bold;"><i class="fa-solid fa-calendar-days" style="color:#e6b800;"></i> Thời gian:</label>
+                    <select id="revenue-time-filter" onchange="renderRevenueDashboard()" style="padding: 7px 12px; background: #181818; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 13px;">
+                        <option value="all">Tất cả thời gian</option>
+                        <option value="today">Hôm nay</option>
+                        <option value="7days">7 ngày qua</option>
+                        <option value="30days">30 ngày qua</option>
+                    </select>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <label style="color:#ccc; font-size:13px; font-weight:bold;"><i class="fa-solid fa-filter" style="color:#e6b800;"></i> Trạng thái:</label>
+                    <select id="revenue-status-filter" onchange="renderRevenueDashboard()" style="padding: 7px 12px; background: #181818; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 13px;">
+                        <option value="all">Tất cả trạng thái</option>
+                        <option value="paid">Đã chuyển khoản (Thực thu)</option>
+                        <option value="pending">COD chờ thu tiền</option>
+                        <option value="cancelled">Đã hủy</option>
+                    </select>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:6px; flex:1; min-width:200px;">
+                    <input type="text" id="revenue-search-input" onkeyup="renderRevenueDashboard()" placeholder="Tìm theo Mã đơn / Tên KH / SĐT..." style="width:100%; padding: 7px 12px; background: #181818; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 13px;">
+                </div>
+            </div>
+
+            <!-- Thẻ Chỉ Số Tài Chính Tổng Quan -->
+            <div class="revenue-stats-grid">
+                <div class="revenue-stat-card">
+                    <i class="fa-solid fa-sack-dollar" style="color:#38ef7d;"></i>
+                    <div>
+                        <small>Doanh Thu Thực Thu</small>
+                        <h3 id="stat-total-revenue" style="color:#38ef7d;">0 VNĐ</h3>
+                    </div>
+                </div>
+                <div class="revenue-stat-card">
+                    <i class="fa-solid fa-hourglass-half" style="color:#ffd700;"></i>
+                    <div>
+                        <small>COD Chờ Thu Tiền</small>
+                        <h3 id="stat-pending-revenue" style="color:#ffd700;">0 VNĐ</h3>
+                    </div>
+                </div>
+                <div class="revenue-stat-card">
+                    <i class="fa-solid fa-calculator" style="color:#ff6666;"></i>
+                    <div>
+                        <small>Tổng Doanh Số Dự Kiến</small>
+                        <h3 id="stat-gross-revenue" style="color:#ff6666;">0 VNĐ</h3>
+                    </div>
+                </div>
+                <div class="revenue-stat-card">
+                    <i class="fa-solid fa-wine-bottle" style="color:#e6b800;"></i>
+                    <div>
+                        <small>Tổng Chai Đã Bán</small>
+                        <h3 id="stat-total-bottles" style="color:#fff;">0 chai</h3>
+                    </div>
+                </div>
+                <div class="revenue-stat-card">
+                    <i class="fa-solid fa-chart-line" style="color:#4a90e2;"></i>
+                    <div>
+                        <small>Trung Bình / Đơn (AOV)</small>
+                        <h3 id="stat-aov-value" style="color:#4a90e2;">0 VNĐ</h3>
+                    </div>
+                </div>
+                <div class="revenue-stat-card">
+                    <i class="fa-solid fa-boxes-packing" style="color:#ab47bc;"></i>
+                    <div>
+                        <small>Thành Công / Đã Hủy</small>
+                        <h3 id="stat-orders-ratio" style="color:#fff;">0 / 0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Chuyển Đổi Chi Tiết Đơn Hàng vs Báo Cáo Sản Phẩm -->
+            <div style="display: flex; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+                <button id="rev-tab-orders" onclick="switchRevenueTab('orders')" style="background:none; border:none; color:#ffd700; font-weight:bold; font-size:14px; cursor:pointer; border-bottom:2px solid #ffd700; padding-bottom:5px;">
+                    <i class="fa-solid fa-list-check"></i> DANH SÁCH ĐƠN HÀNG CHI TIẾT
+                </button>
+                <button id="rev-tab-products" onclick="switchRevenueTab('products')" style="background:none; border:none; color:#888; font-weight:bold; font-size:14px; cursor:pointer; padding-bottom:5px;">
+                    <i class="fa-solid fa-trophy"></i> TOP SẢN PHẨM BÁN CHẠY
+                </button>
+            </div>
+
+            <!-- Bảng 1: Danh sách Đơn hàng Chi tiết -->
+            <div id="revenue-orders-view" class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 90px;">Mã Đơn</th>
+                            <th style="width: 130px;">Thời Gian</th>
+                            <th style="width: 170px;">Khách Hàng</th>
+                            <th>Chi Tiết Sản Phẩm Bán</th>
+                            <th style="width: 120px;">Hình Thức</th>
+                            <th style="width: 130px;">Tổng Tiền</th>
+                            <th style="width: 130px;">Trạng Thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="revenue-orders-tbody">
+                        <!-- Render từ JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bảng 2: Top Sản phẩm bán chạy -->
+            <div id="revenue-products-view" class="admin-table-container" style="display: none;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">STT</th>
+                            <th style="width: 60px;">Ảnh</th>
+                            <th>Tên Rượu Vang</th>
+                            <th style="width: 120px;">Đơn Giá Vang</th>
+                            <th style="width: 120px;">Số Lượng Bán</th>
+                            <th style="width: 160px;">Tổng Doanh Thu</th>
+                            <th style="width: 100px;">Tỷ Lệ %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="revenue-products-tbody">
+                        <!-- Render từ JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Thanh Toán Chi Tiết -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content" style="max-width: 680px; max-height: 90vh; overflow-y: auto;">
+            <span class="close-modal" onclick="closeCheckoutModal()">&times;</span>
+            <h2 style="color: #e6b800; text-align: center; margin-bottom: 20px; font-size: 22px;">
+                <i class="fa-solid fa-credit-card"></i> THÔNG TIN ĐẶT HÀNG CHI TIẾT
+            </h2>
+            <form id="checkout-form" onsubmit="submitOrder(event)">
+                <div id="checkout-summary" style="background: #111; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #333;">
+                    <!-- Render tóm tắt sản phẩm từ JS -->
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:13.5px;">Họ và Tên người nhận (*):</label>
+                        <input type="text" id="cust-name" required placeholder="Nhập họ và tên..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:13.5px;">Số điện thoại nhận hàng (*):</label>
+                        <input type="tel" id="cust-phone" required placeholder="Nhập số điện thoại..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:13.5px;">Email nhận thông báo/hóa đơn:</label>
+                        <input type="email" id="cust-email" placeholder="example@gmail.com" style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:13.5px;">Hình thức thanh toán:</label>
+                        <select id="payment-method" required style="width:100%; padding:10px; background:#222; border:1px solid #444; color:#fff; border-radius:4px;">
+                            <option value="Thanh toán khi nhận hàng (COD)">Thanh toán khi nhận hàng (COD)</option>
+                            <option value="Chuyển khoản ngân hàng (QR Code)">Chuyển khoản mã QR Ngân hàng (MB, VCB, Techcombank...)</option>
+                            <option value="Ví điện tử MoMo">Thanh toán qua App Ví MoMo</option>
+                            <option value="Ví điện tử ZaloPay">Thanh toán qua App Ví ZaloPay</option>
+                            <option value="Cổng VNPay QR (App Ngân hàng)">Thanh toán qua App Ngân hàng (VNPay QR)</option>
+                            <option value="Thẻ quốc tế / Apple Pay">Thẻ Quốc tế (Visa / Master / Apple Pay)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:13.5px;">Địa chỉ giao hàng cụ thể (*):</label>
+                    <input type="text" id="cust-address" required placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:13.5px;">Ghi chú giao hàng (Ví dụ: Giao giờ hành chính, bọc quà...):</label>
+                    <textarea id="cust-note" rows="2" placeholder="Nhập ghi chú dành cho shipper hoặc cửa hàng..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px; resize:vertical;"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width:100%; padding:13px; font-size:16px; border:none; cursor:pointer; font-weight:bold;">
+                    <i class="fa-solid fa-paper-plane"></i> XÁC NHẬN ĐẶT HÀNG NGAY
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Bảng Cảm Ơn Kích Thước Lớn -->
+    <div id="thank-you-modal" class="modal">
+        <div class="modal-content" style="max-width: 750px; padding: 40px; text-align: center; border: 2px solid #ffd700; background: linear-gradient(145deg, #1f1f1f, #141414); box-shadow: 0 15px 40px rgba(0,0,0,0.8);">
+            
+            <div style="margin-bottom: 20px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 70px; color: #38ef7d; text-shadow: 0 0 20px rgba(56, 239, 125, 0.4);"></i>
+            </div>
+            
+            <h1 style="color: #ffd700; font-size: 28px; font-weight: bold; margin-bottom: 12px; letter-spacing: 1px;">
+                CẢM ƠN QUÝ KHÁCH ĐÃ ĐẶT HÀNG!
+            </h1>
+            
+            <p style="color: #e0e0e0; font-size: 16px; line-height: 1.6; max-width: 620px; margin: 0 auto 25px;">
+                Đơn hàng của quý khách đã được hệ thống ghi nhận thành công. Showroom <strong style="color: #ffd700;">Rượu Vang Plaza</strong> sẽ sớm liên hệ xác nhận và giao hàng hỏa tốc đến địa chỉ của bạn.
+            </p>
+
+            <div id="thank-you-order-details" style="background: rgba(255, 255, 255, 0.04); padding: 22px; border-radius: 10px; border: 1px solid #333; text-align: left; margin-bottom: 25px; font-size: 14.5px;">
+                <!-- JS render chi tiết đơn hàng vào đây -->
+            </div>
+
+            <div style="background: rgba(128, 0, 32, 0.25); border: 1px dashed #800020; border-radius: 8px; padding: 12px; margin-bottom: 25px; color: #ccc; font-size: 14px;">
+                <i class="fa-solid fa-headset" style="color: #ffd700; margin-right: 6px;"></i> Cần hỗ trợ thay đổi đơn hàng gấp? Gọi ngay Hotline: <strong style="color: #ffd700;">0988 888 668</strong>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button onclick="closeThankYouModal()" class="btn-primary" style="padding: 14px 35px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; border: none; flex: 1;">
+                    <i class="fa-solid fa-cart-shopping"></i> TIẾP TỤC MUA SẮM
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Phóng To Ảnh Giấy Phép Kinh Doanh -->
+    <div id="license-modal" class="modal" onclick="closeLicenseModal()">
+        <div class="modal-content" style="max-width: 600px; padding: 15px; text-align: center; background: #111;" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeLicenseModal()">&times;</span>
+            <h3 style="color: #ffd700; margin-bottom: 12px; font-size: 18px;"><i class="fa-solid fa-certificate"></i> GIẤY PHÉP KINH DOANH RƯỢU</h3>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl5ac_hOmWe3xtAtSsd2_9K5bhbFfzRyhP2VnsxgIkOw&s=10" alt="Giấy phép kinh doanh rượu" style="width: 100%; max-height: 75vh; object-fit: contain; border-radius: 6px; border: 1px solid #444;" referrerpolicy="no-referrer">
+            <p style="color: #aaa; font-size: 12px; margin-top: 10px;">Bấm ra ngoài khung hoặc dấu X để đóng.</p>
+        </div>
+    </div>
+
+    <!-- MODAL GIỚI THIỆU THÀNH VIÊN NHÓM -->
+<div id="team-modal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 800px; width: 90%; background: #1a1a1a; border: 1px solid #e6b800; border-radius: 8px; padding: 25px; color: #fff; position: relative; max-height: 85vh; overflow-y: auto;">
+        <span onclick="closeTeamModal()" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #aaa;">&times;</span>
+        <h2 style="color: #ffd700; font-size: 20px; text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-users-gear"></i> Giới Thiệu Thành Viên Nhóm Đồ Án</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px;">
+            <!-- Thành viên 1 -->
+            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                <img src="https://scontent.fhan7-1.fna.fbcdn.net/v/t39.30808-6/381346865_161076323718786_5984618265589581082_n.png?stp=dst-jpg_tt6&cstp=mx1500x1000&ctp=s1500x1000&_nc_cat=101&ccb=1-7&_nc_sid=86c6b0&_nc_eui2=AeER6CifzF10zhaU7eUVO_t5_SWej-WCd_z9JZ6P5YJ3_KI-5Nzic6QQTVOyyEKsiarKDTmzjtu7V3iYDnyL1JrW&_nc_ohc=gPIr_pltkJQQ7kNvwGzeTQ8&_nc_oc=Ado2IpErlPj8oteizpt386Ywm_e8TH6Fro8BpW5oHStfJ_XzISuzP_WUIrDmVboG940&_nc_zt=23&_nc_ht=scontent.fhan7-1.fna&_nc_gid=JrufxiLe1JKvFwIyuaHVbg&_nc_ss=7b2a8&oh=00_AQLZPUMvNvJBUhvyeyjcqSNmJio5bwxZP0QhsHBKHf671w&oe=6AB84304" alt="Nguyễn Công Chiến" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Nguyễn Công Chiến</h4>
+                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Trưởng Nhóm</p>
+                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000368</p>
+            </div>
+
+            <!-- Thành viên 2 -->
+            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                <img src="https://scontent.fhan7-1.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png&cstp=mx2048x2048&ctp=s200x200&_nc_cat=1&ccb=1-7&_nc_sid=b224c7&_nc_eui2=AeEwplTKfy5AE1dPLPYfts_VWt9TLzuBU1Ba31MvO4FTUIrrbU_czqGDLJ0d8GKJODsU3FpSIdHt_WToNZIa5Yc7&_nc_ohc=EgFnToEjFPcQ7kNvwGqfBjs&_nc_oc=AdqngDE6mS1pNcyLyPTliGGPCRNO8D8XPo7PvizQKZyP3W2Eda_7fZAMS2Rvzopnsts&_nc_zt=24&_nc_ht=scontent.fhan7-1.fna&_nc_ss=7b2a8&oh=00_AQKvZ-dDdVDZ92RhbHjBpC3_nddhYJ_hnklBWHS-TiJdBw&oe=6AD9CF3A" alt="Dương Ngô Quảng" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Dương Ngô Quảng</h4>
+                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
+                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000120</p>
+            </div>
+
+            <!-- Thành viên 3 -->
+            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                <img src="https://scontent.fhan9-1.fna.fbcdn.net/v/t39.30808-1/705859875_1019646420745904_8474849709242082030_n.jpg?stp=dst-jpg_tt6&cstp=mx736x732&ctp=s200x200&_nc_cat=109&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFljle0Px2vLPMASar7XRmprhC54ps-1XGuELnimz7Vcb68XJ97-eqo42KKfRIDE1tOUlNseiLygmhup0RSjA5C&_nc_ohc=Ba8E12Rq9wIQ7kNvwHWaMMF&_nc_oc=AdqEzwM_AmgDjg0AmhIMrI8Av04E8XNzKSqH6Z3mBBxFKxDWEbErb--E7QSNlCDlBBE&_nc_zt=24&_nc_ht=scontent.fhan9-1.fna&_nc_gid=bZaVEsUJ9OnlOJyotF1QwQ&_nc_ss=7b2a8&oh=00_AQIhB0Qj3OO6VRtHHqKota7UknyyTHgy_eha9uKs-hizSQ&oe=6AB83D3A" alt="Nguyễn Anh Tuấn" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Nguyễn Anh Tuấn</h4>
+                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
+                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000531</p>
+            </div>
+
+            <!-- Thành viên 4 -->
+            <div style="background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center;">
+                <img src="https://scontent.fhan19-1.fna.fbcdn.net/v/t39.30808-6/481267616_615960891222020_3129244601572774543_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1242x2688&ctp=s960x960&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeGrdmzGbtA6-MrYRIepXKNtSNURTbowF05I1RFNujAXTnr96jhaXAWwRSkavag39T66ih4t2q2pTt3jHZC0lb8F&_nc_ohc=Lck716wfxUgQ7kNvwGepN9i&_nc_oc=Ado0OQ2m-Hd9TskWMaPjTGob_i1fyDAOK0onj40U2aLXMGtIOh8_rvLU3RqP5mWXsB0&_nc_zt=23&_nc_ht=scontent.fhan19-1.fna&_nc_gid=YDONCwBi8zRt-O8NH96kRQ&_nc_ss=7b2a8&oh=00_AQLFoCEe1msWGc2zpq4LEzQDIrrP0YhXJLN55oD3bZpQPw&oe=6AB8DE11" alt="Đinh Anh Tuấn" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; margin-bottom: 10px;">
+                <h4 style="color: #fff; font-size: 14px; margin-bottom: 4px;">Đinh Anh Tuấn</h4>
+                <p style="color: #ffd700; font-size: 11px; font-weight: bold; margin-bottom: 4px;">Thành viên</p>
+                <p style="color: #aaa; font-size: 11px; margin: 0;">Mã Sinh Viên: 25000654</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Floating Contact Bar -->
+    <div class="floating-contact-bar">
+        <a href="#home" class="contact-item" title="Trang chủ">
+            <i class="fa-solid fa-house"></i>
+            <span>Trang chủ</span>
+        </a>
+        <a href="tel:0988888668" class="contact-item" title="Gọi Hotline">
+            <i class="fa-solid fa-phone"></i>
+            <span>Hotline</span>
+        </a>
+        <a href="https://zalo.me/0988888668" target="_blank" class="contact-item" title="Chat Zalo">
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>Zalo</span>
+        </a>
+        <a href="https://m.me/" target="_blank" class="contact-item" title="Chat Messenger">
+            <i class="fa-brands fa-facebook-messenger"></i>
+            <span>Messenger</span>
+        </a>
+    </div>
+
+    <!-- Khối Hướng Dẫn Thưởng Thức Rượu Vang -->
+    <section class="wine-guide-section">
+        <div class="container">
+            <h3 class="section-title-small"><i class="fa-solid fa-book-open"></i> HƯỚNG DẪN THƯỞNG THỨC RƯỢU VANG CHUẨN SÀNH</h3>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fa-solid fa-temperature-low"></i></div>
+                    <h4>1. Nhiệt độ phục vụ</h4>
+                    <p>Vang đỏ ngon nhất ở <strong>16°C - 18°C</strong>. Vang trắng và Sparkling nên ướp lạnh ở <strong>6°C - 10°C</strong> trước khi thưởng thức.</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fa-solid fa-wind"></i></div>
+                    <h4>2. Cho rượu "thở" (Decant)</h4>
+                    <p>Rót vang đỏ ra bình Decanter từ <strong>15 - 30 phút</strong> giúp rượu tiếp xúc oxy, tỏa hương thơm và giảm bớt vị chát gắt.</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fa-solid fa-wine-glass"></i></div>
+                    <h4>3. Chọn ly phù hợp</h4>
+                    <p>Dùng ly bầu to cho vang đỏ để gom hương thơm; ly thân nhỏ, miệng hẹp cho vang trắng và ly thuôn dài cho sâm panh.</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <h4>4. Kết hợp món ăn</h4>
+                    <p>Vang đỏ hợp với thịt bò, thịt cừu nướng. Vang trắng hoàn hảo khi đi kèm hải sản, đồ nướng nhẹ hoặc salad tươi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Khối Logo Thương Hiệu Dàn Hàng Ngang -->
+    <section class="brands-section">
+        <div class="container">
+            <h3 class="brands-title">ĐỐI TÁC & THƯƠNG HIỆU RƯỢU VANG HÀNG ĐẦU</h3>
+            <div class="brands-horizontal-list">
+                <div class="brand-logo-item" title="Château Margaux">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQODBJAfwod1miYOu9gok623v5iFFx9mzjJuSKwDq4skg&s=10" alt="Margaux">
+                    <span>Château Margaux</span>
+                </div>
+                <div class="brand-logo-item" title="Lafite Rothschild">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfi0VnTPKeSPlGx2DpGdTSRDEmCmrSTZ2FRmlT747-UA&s=10" alt="Lafite">
+                    <span>Lafite Rothschild</span>
+                </div>
+                <div class="brand-logo-item" title="Opus One">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6iv8SBJwTPUjXhR14RA2cwpsgce9ZfRnIMNH2LJUfbA&s=10" alt="Opus One">
+                    <span>Opus One</span>
+                </div>
+                <div class="brand-logo-item" title="Penfolds">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWbDPYpDna6yVZGMcgagGSWtwRkAqPab5dP5jIcW_OLw&s=10" alt="Penfolds">
+                    <span>Penfolds</span>
+                </div>
+                <div class="brand-logo-item" title="Moët & Chandon">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0opn_igNf2zdfqXJmZefKill4_p7jOTTKKJ2wKf5Bjg&s=10" alt="Moet">
+                    <span>Moët & Chandon</span>
+                </div>
+                <div class="brand-logo-item" title="Dom Pérignon">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNGPrWGIS4cWWaxrvmXqmxK9nkzcOFxcKQlWenHWmnw&s=10" alt="Dom Perignon">
+                    <span>Dom Pérignon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM GỬI GÓP Ý / LIÊN HỆ CÓ VALIDATION BẰNG JAVASCRIPT (Yêu cầu bắt buộc 6.2) -->
+    <section style="max-width: 600px; margin: 40px auto; background: #181818; border: 1px solid #333; padding: 25px; border-radius: 8px; color: #fff;">
+        <h3 style="color: #ffd700; font-size: 18px; margin-bottom: 15px; text-align: center;"><i class="fa-solid fa-envelope-open-text"></i> Gửi Thông Tin Góp Ý & Liên Hệ</h3>
+        
+        <form id="contact-feedback-form" onsubmit="validateAndSubmitFeedback(event)" style="display: flex; flex-direction: column; gap: 12px;">
+            <div>
+                <label style="font-size: 13px; color: #ccc; display: block; margin-bottom: 4px;">Họ và tên của bạn: *</label>
+                <input type="text" id="fb-name" placeholder="Nhập họ và tên..." style="width: 100%; padding: 8px 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box;">
+                <small id="error-fb-name" style="color: #ff4d4d; font-size: 11px; display: none;"></small>
+            </div>
+
+            <div>
+                <label style="font-size: 13px; color: #ccc; display: block; margin-bottom: 4px;">Địa chỉ Email: *</label>
+                <input type="email" id="fb-email" placeholder="example@gmail.com" style="width: 100%; padding: 8px 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box;">
+                <small id="error-fb-email" style="color: #ff4d4d; font-size: 11px; display: none;"></small>
+            </div>
+
+            <div>
+                <label style="font-size: 13px; color: #ccc; display: block; margin-bottom: 4px;">Số điện thoại liên hệ: *</label>
+                <input type="text" id="fb-phone" placeholder="Nhập 10 chữ số..." style="width: 100%; padding: 8px 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box;">
+                <small id="error-fb-phone" style="color: #ff4d4d; font-size: 11px; display: none;"></small>
+            </div>
+
+            <div>
+                <label style="font-size: 13px; color: #ccc; display: block; margin-bottom: 4px;">Nội dung góp ý / thắc mắc: *</label>
+                <textarea id="fb-message" rows="3" placeholder="Nhập nội dung bạn muốn gửi gắm..." style="width: 100%; padding: 8px 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box; resize: none;"></textarea>
+                <small id="error-fb-message" style="color: #ff4d4d; font-size: 11px; display: none;"></small>
+            </div>
+
+            <button type="submit" style="background: #800020; color: #ffd700; border: 1px solid #e6b800; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 5px;">
+                GỬI GÓP Ý NGAY
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container footer-content" style="display: flex; flex-wrap: wrap; gap: 25px; justify-content: space-between;">
+            <div class="footer-info" style="flex: 1; min-width: 240px;">
+                <h3>RƯỢU VANG PLAZA</h3>
+                <p>Địa chỉ uy tín hàng đầu cung cấp rượu vang chính hãng nhập khẩu từ Pháp, Ý, Chile, Mỹ, Tây Ban Nha và các dòng Vang Việt Nam cao cấp.</p>
+            </div>
+            
+            <!-- Khối Giấy Phép Kinh Doanh Có Ảnh -->
+            <div class="footer-license" style="flex: 1.2; min-width: 270px; display: flex; gap: 15px; align-items: flex-start;">
+                <div onclick="openLicenseModal()" style="cursor: pointer; background: #222; padding: 4px; border: 1px solid #e6b800; border-radius: 4px; text-align: center;" title="Bấm để phóng to giấy phép">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl5ac_hOmWe3xtAtSsd2_9K5bhbFfzRyhP2VnsxgIkOw&s=10" alt="Giấy phép kinh doanh" style="width: 75px; height: 95px; object-fit: cover; display: block; border-radius: 2px;" referrerpolicy="no-referrer">
+                    <span style="font-size: 9px; color: #ffd700; display: block; margin-top: 2px; font-weight: bold;">XEM ẢNH</span>
+                </div>
+                <div>
+                    <h4 style="color: #e6b800; margin-bottom: 6px; font-size: 15px;"><i class="fa-solid fa-certificate"></i> GIẤY PHÉP KINH DOANH</h4>
+                    <p style="font-size: 12.5px; color: #ccc; line-height: 1.5; margin-bottom: 4px;">
+                        <strong style="color: #ffd700;">GP Bán buôn/lẻ rượu số:</strong> 38/GP-SCT do Sở Công Thương TP. Hà Nội cấp.
+                    </p>
+                    <p style="font-size: 12px; color: #aaa; line-height: 1.4; margin: 0;">
+                        Kinh doanh hợp pháp các sản phẩm đồ uống có cồn theo quy định của pháp luật.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Khối Tuân Thủ Quy Định Quảng Cáo -->
+            <div class="footer-ad-compliance" style="flex: 1.2; min-width: 270px;">
+                <h4 style="color: #e6b800; margin-bottom: 6px; font-size: 15px;"><i class="fa-solid fa-shield-halved"></i> QUY ĐỊNH QUẢNG CÁO</h4>
+                <p style="font-size: 12.5px; color: #ccc; line-height: 1.5; margin-bottom: 4px;">
+                    <strong style="color: #ffd700;">Tuân thủ quy định quảng cáo:</strong> Nắm rõ quy định về nồng độ cồn và giới hạn quảng cáo thương mại đối với sản phẩm rượu.
+                </p>
+                <p style="font-size: 12px; color: #aaa; line-height: 1.4; margin: 0;">
+                    Website tuân thủ nghiêm ngặt Luật Quảng cáo và Luật Phòng chống tác hại của rượu, bia tại Việt Nam.
+                </p>
+            </div>
+
+            <div class="footer-contact" style="flex: 1; min-width: 220px;">
+                <h4>THÔNG TIN LIÊN HỆ</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Showroom Rượu Vang Plaza, Hà Nội</p>
+                <p><i class="fa-solid fa-phone"></i> Hotline: 0988 888 668</p>
+                <p><i class="fa-solid fa-envelope"></i> Email: contact@ruouvangplaza.com</p>
+            </div>
+        </div>
+
+        <!-- Khối cảnh báo cố định dưới Footer -->
+        <div style="background: #0d0d0d; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 12px 0; margin-bottom: 15px;">
+            <div class="container" style="text-align: center; color: #ff6666; font-size: 12.5px; line-height: 1.6;">
+                <p style="font-weight: bold; margin-bottom: 3px;">
+                    <i class="fa-solid fa-circle-exclamation"></i> LƯU Ý KHI SỬ DỤNG ĐỒ UỐNG CÓ CỒN
+                </p>
+                <p style="color: #aaa;">
+                    Thưởng thức có trách nhiệm | Không bán rượu cho người dưới 18 tuổi | Đã uống rượu, bia - Không lái xe.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rượu Vang Plaza. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Xem Lịch Sử Đơn Hàng Đã Mua -->
+    <div id="my-orders-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px; max-height: 85vh; overflow-y: auto;">
+            <span class="close-modal" onclick="closeMyOrdersModal()">&times;</span>
+            <h2 style="color: #ffd700; text-align: center; margin-bottom: 20px; font-size: 22px;">
+                <i class="fa-solid fa-clock-rotate-left"></i> LỊCH SỬ ĐƠN HÀNG ĐÃ MUA
+            </h2>
+            
+            <div id="my-orders-list">
+                <!-- JS sẽ render danh sách đơn hàng vào đây -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bảng Yêu Cầu Hủy Đơn Hàng -->
+    <div id="cancel-reason-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px; padding: 30px; border: 1px solid #ff4d4d; background: #1a1a1a;">
+            <span class="close-modal" onclick="closeCancelModal()">&times;</span>
+            <h2 style="color: #ff4d4d; text-align: center; margin-bottom: 15px; font-size: 20px;">
+                <i class="fa-solid fa-triangle-exclamation"></i> YÊU CẦU HỦY ĐƠN HÀNG
+            </h2>
+            <p style="color: #ccc; font-size: 14px; text-align: center; margin-bottom: 20px;" id="cancel-modal-title">
+                Mã đơn hàng: <strong id="cancel-target-code" style="color: #ffd700;">#---</strong>
+            </p>
+
+            <form id="cancel-order-form" onsubmit="confirmCancelOrder(event)">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom: 8px; color:#ddd; font-size:13.5px;">Chọn lý do hủy đơn (*):</label>
+                    <select id="cancel-reason-select" required onchange="toggleCustomReasonInput()" style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px;">
+                        <option value="">-- Chọn lý do --</option>
+                        <option value="Muốn thay đổi địa chỉ/số điện thoại nhận hàng">Muốn thay đổi địa chỉ/SĐT nhận hàng</option>
+                        <option value="Muốn đổi sang sản phẩm khác">Muốn đổi sang sản phẩm khác</option>
+                        <option value="Đổi ý, không còn nhu cầu mua nữa">Đổi ý, không còn nhu cầu mua nữa</option>
+                        <option value="Thời gian giao hàng quá lâu">Thời gian giao hàng quá lâu</option>
+                        <option value="Tìm thấy nơi khác giá tốt hơn">Tìm thấy nơi khác giá tốt hơn</option>
+                        <option value="Lý do khác">Lý do khác...</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="custom-reason-group" style="display: none; margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom: 5px; color:#ccc; font-size:13px;">Chi tiết lý do khác (*):</label>
+                    <textarea id="cancel-reason-custom" rows="3" placeholder="Nhập lý do chi tiết của bạn..." style="width:100%; padding:10px; background:#282828; border:1px solid #444; color:#fff; border-radius:4px; resize:vertical;"></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="button" onclick="closeCancelModal()" style="flex: 1; padding: 11px; background: #333; border: 1px solid #555; color: #ccc; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                        QUAY LẠI
+                    </button>
+                    <button type="submit" style="flex: 1; padding: 11px; background: #800020; border: 1px solid #ff4d4d; color: #fff; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                        XÁC NHẬN HỦY
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Bảng Thông Báo Hủy Thành Công -->
+    <div id="cancel-success-modal" class="modal">
+        <div class="modal-content" style="max-width: 550px; padding: 30px; text-align: center; border: 1px solid #ff4d4d; background: #181818;">
+            <span class="close-modal" onclick="closeCancelSuccessModal()">&times;</span>
+            
+            <div style="font-size: 55px; color: #ff4d4d; margin-bottom: 10px;">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            
+            <h2 style="color: #ff4d4d; margin-bottom: 15px; font-size: 22px;">
+                ĐÃ HỦY ĐƠN HÀNG THÀNH CÔNG!
+            </h2>
+            
+            <div id="cancel-success-details" style="text-align: left; margin-bottom: 20px;">
+                <!-- Dữ liệu JS render chi tiết đơn hủy vào đây -->
+            </div>
+
+            <button onclick="closeCancelSuccessModal()" style="width: 100%; padding: 12px; background: #2a2a2a; border: 1px solid #ff4d4d; color: #fff; font-weight: bold; border-radius: 4px; cursor: pointer;">
+                ĐÓNG THÔNG BÁO
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Bảng Mã QR Thanh Toán Chuyển Khoản -->
+    <div id="qr-payment-modal" class="modal">
+        <div class="modal-content" style="max-width: 480px; padding: 25px; border: 1px solid #ffd700; background: #181818;">
+            <span class="close-modal" onclick="closeQRModal()">&times;</span>
+            
+            <h3 style="color: #ffd700; text-align: center; margin-bottom: 15px; font-size: 20px;">
+                <i class="fa-solid fa-qrcode"></i> THANH TOÁN QR CODE
+            </h3>
+
+            <div id="qr-modal-details">
+                <!-- Mã QR VietQR và Chi Tiết sẽ được Render vào đây -->
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button onclick="confirmQRPaid()" style="flex: 1; padding: 12px; background: #800020; border: 1px solid #ffd700; color: #ffd700; font-weight: bold; border-radius: 4px; cursor: pointer;">
+                    <i class="fa-solid fa-check-circle"></i> HOÀN THÀNH
+                </button>
+                <button onclick="closeQRModal()" style="padding: 12px 20px; background: #333; border: 1px solid #555; color: #ccc; font-weight: bold; border-radius: 4px; cursor: pointer;">
+                    ĐÓNG
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PHẦN ĐÁNH GIÁ CHẤT LƯỢNG PHỤC VỤ ================= -->
+    <section class="service-reviews-section" style="max-width: 1200px; margin: 40px auto; padding: 25px; background: #181818; border: 1px solid #333; border-radius: 10px; color: #fff;">
+        <div style="text-align: center; margin-bottom: 25px;">
+            <h2 style="color: #ffd700; font-size: 24px; margin-bottom: 8px;"><i class="fa-solid fa-face-smile-star"></i> Đánh Giá Dịch Vụ & Phục Vụ</h2>
+            <p style="color: #aaa; font-size: 14px;">Ý kiến của bạn là động lực để Rượu Vang Plaza nâng cao chất lượng phục vụ mỗi ngày!</p>
+        </div>
+
+        <!-- Bố cục 2 cột: Cột trái là Form gửi đánh giá, Cột phải là danh sách đánh giá -->
+        <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; flex-wrap: wrap;" class="review-grid-container">
+            
+            <!-- Cột 1: Form Gửi Đánh Giá -->
+            <form id="service-review-form" onsubmit="submitServiceReview(event)" style="background: #222; padding: 20px; border-radius: 8px; border: 1px solid #444; display: flex; flex-direction: column; gap: 12px;">
+                <h3 style="color: #e6b800; font-size: 16px; margin-bottom: 5px;"><i class="fa-solid fa-pen-nib"></i> Gửi đánh giá của bạn</h3>
+                
+                <div>
+                    <label style="font-size: 12.5px; color: #ccc; display: block; margin-bottom: 4px;">Họ và tên của bạn:</label>
+                    <input type="text" id="srv-name" required placeholder="Nhập họ tên..." style="width: 100%; padding: 8px 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box;">
+                </div>
+
+                <div>
+                    <label style="font-size: 12.5px; color: #ccc; display: block; margin-bottom: 4px;">Mức độ hài lòng:</label>
+                    <select id="srv-rating" style="width: 100%; padding: 8px 10px; background: #111; border: 1px solid #444; color: #ffd700; border-radius: 4px; box-sizing: border-box; font-weight: bold;">
+                        <option value="5">⭐⭐⭐⭐⭐ - Tuyệt vời (5/5)</option>
+                        <option value="4">⭐⭐⭐⭐ - Hài lòng (4/5)</option>
+                        <option value="3">⭐⭐⭐ - Bình thường (3/5)</option>
+                        <option value="2">⭐⭐ - Cần cải thiện (2/5)</option>
+                        <option value="1">⭐ - Không hài lòng (1/5)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="font-size: 12.5px; color: #ccc; display: block; margin-bottom: 4px;">Nhận xét về tốc độ giao hàng & tư vấn:</label>
+                    <textarea id="srv-comment" required rows="3" placeholder="Nhân viên tư vấn nhiệt tình, giao hàng nhanh..." style="width: 100%; padding: 8px 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box; resize: none;"></textarea>
+                </div>
+
+                <button type="submit" style="background: #800020; color: #ffd700; border: 1px solid #ffd700; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
+                    <i class="fa-solid fa-paper-plane"></i> GỬI ĐÁNH GIÁ DỊCH VỤ
+                </button>
+            </form>
+
+            <!-- Cột 2: Danh sách các đánh giá dịch vụ gần đây -->
+            <div>
+                <h3 style="color: #e6b800; font-size: 16px; margin-bottom: 12px;"><i class="fa-solid fa-comments"></i> Phản hồi từ khách hàng thực tế</h3>
+                <div id="service-reviews-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; padding-right: 5px;">
+                    <!-- Dữ liệu đánh giá sẽ được render bằng JavaScript ở dưới -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="code.js"></script>
+    <script>
+        function openLicenseModal() {
+            document.getElementById("license-modal").classList.add("show");
+        }
+        function closeLicenseModal() {
+            document.getElementById("license-modal").classList.remove("show");
+        }
+    </script>
+</body>
+</html>
